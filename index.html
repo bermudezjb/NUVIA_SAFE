@@ -10,10 +10,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
 :root{color-scheme:light only}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;background:#fff;color-scheme:light}
-body{background:#fff!important;color:#000!important;font-family:'Work Sans',sans-serif;font-weight:300;font-size:15px;line-height:1.6}
-header{position:fixed;top:0;left:0;right:0;background:#fff;border-bottom:1px solid #e5e5e5;z-index:100;padding:1.5rem 0}
+*{margin:0;padding:0;box-sizing:border-box;color-scheme:light!important}
+html{scroll-behavior:smooth;background:#fff!important;color-scheme:light!important;background-color:#fff!important}
+body{background:#fff!important;background-color:#fff!important;color:#000!important;font-family:'Work Sans',sans-serif;font-weight:300;font-size:15px;line-height:1.6}
+@media (prefers-color-scheme: dark){html{background:#fff!important;color-scheme:light!important}body{background:#fff!important;color:#000!important}}
+header{position:fixed;top:0;left:0;right:0;background:#fff!important;border-bottom:1px solid #e5e5e5;z-index:100;padding:1.5rem 0}
 .header-inner{max-width:1400px;margin:0 auto;padding:0 3rem;display:flex;align-items:center;justify-content:space-between}
 .logo{font-size:22px;font-weight:700;letter-spacing:-.02em;color:#1e3a8a;font-family:'Work Sans',sans-serif}
 .logo-safe{font-weight:300;font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:#64748b;margin-left:.5rem}
@@ -24,9 +25,9 @@ header{position:fixed;top:0;left:0;right:0;background:#fff;border-bottom:1px sol
 .lang-btn:hover:not(.active){background:#eee}
 .emergency-btn{background:#000;color:#fff;border:none;padding:.75rem 1.5rem;font:inherit;font-size:13px;cursor:pointer;transition:opacity .2s}
 .emergency-btn:hover{opacity:.8}
-.main{padding-top:80px;background:#fff}
-.hero{max-width:1400px;margin:0 auto;padding:8rem 3rem 6rem;background:#fff}
-.hero h1{font-size:48px;font-weight:300;line-height:1.2;margin-bottom:1.5rem;color:#000}
+.main{padding-top:80px;background:#fff!important}
+.hero{max-width:1400px;margin:0 auto;padding:8rem 3rem 6rem;background:#fff!important}
+.hero h1{font-size:48px;font-weight:300;line-height:1.2;margin-bottom:1.5rem;color:#000!important}
 .hero p{font-size:17px;color:#666;margin-bottom:2.5rem;max-width:700px}
 .search-box{position:relative;max-width:500px}
 .search-box input{width:100%;border:1px solid #e5e5e5;padding:1rem 1rem 1rem 3rem;font:inherit;font-size:15px;outline:none;transition:border-color .2s}
@@ -45,15 +46,15 @@ header{position:fixed;top:0;left:0;right:0;background:#fff;border-bottom:1px sol
 .filter-btn:hover{border-color:#000;color:#000}
 .filter-btn.active{background:#000;color:#fff}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1px;background:#e5e5e5;border:1px solid #e5e5e5}
-.card{background:#fff;padding:2.5rem;cursor:pointer;transition:background .15s}
-.card:hover{background:#fafafa}
+.card{background:#fff!important;padding:2.5rem;cursor:pointer;transition:background .15s;color:#000!important}
+.card:hover{background:#fafafa!important}
 .card-header{display:flex;justify-content:space-between;margin-bottom:1.5rem}
 .card-icon{font-size:24px;opacity:.7}
 .risk-badge{font-size:10px;text-transform:uppercase;padding:.35rem .75rem;border-radius:999px;font-weight:500}
-.badge-danger{background:#f5f5f5;color:#d32f2f}
-.badge-warning{background:#f5f5f5;color:#f57c00}
-.badge-low{background:#f5f5f5;color:#388e3c}
-.card h3{font-size:18px;font-weight:400;margin-bottom:.5rem}
+.badge-danger{background:#f5f5f5;color:#d32f2f!important}
+.badge-warning{background:#f5f5f5;color:#f57c00!important}
+.badge-low{background:#f5f5f5;color:#388e3c!important}
+.card h3{font-size:18px;font-weight:400;margin-bottom:.5rem;color:#000!important}
 .card-cat{font-size:12px;text-transform:uppercase;color:#999;margin-bottom:1rem;letter-spacing:.08em}
 .card-desc{font-size:14px;color:#666;line-height:1.6;margin-bottom:1.5rem}
 .card-footer{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#000;padding-top:1rem;border-top:1px solid #f0f0f0}
@@ -130,12 +131,6 @@ footer{border-top:1px solid #e5e5e5;padding:3rem;text-align:center;background:#f
 <h3 id="welcome-title">About This Platform</h3>
 <p id="welcome-p1">This platform was created to provide quick, clear, and reliable access to emergency protocols, safety information, and protective equipment used in dental laboratories.</p>
 <p id="welcome-p2">NUVIA Dental Safety centralizes essential guidelines for the safe handling of materials and for acting effectively in case of exposure or injury. Its goal is to reduce response time to incidents, support informed decision-making, and foster a safety culture for all people who work in or visit the laboratory.</p>
-<p id="welcome-p3">This resource is designed to be:</p>
-<ul>
-<li id="welcome-li1">Easy to use</li>
-<li id="welcome-li2">Accessible from any device</li>
-<li id="welcome-li3">Useful in real emergencies, training sessions, and audits</li>
-</ul>
 <p class="priority" id="welcome-priority">Your safety is a priority. If in doubt, follow emergency protocols and seek immediate medical attention.</p>
 </div>
 
@@ -204,7 +199,7 @@ footer{border-top:1px solid #e5e5e5;padding:3rem;text-align:center;background:#f
 <script>
 const DB={
 en:{
-ui:{emBtn:'Emergency',title:'Dental Laboratory Safety System',subtitle:'Fast access to emergency protocols, material safety data, and protective equipment guidelines for dental laboratory professionals.',search:'Search materials...',ft:'Filter Materials',f0:'All',f1:'Acids',f2:'Resins',f3:'Solvents',f4:'Metals',f5:'Others',view:'View Details','urgent-title':'Urgent Care Centers - Denver Area','forms-title':'Downloadable Forms',form1:'First Report of Injury Form','form1-desc':'Complete within 24 hours of any workplace injury or chemical exposure',t0:'Emergency Protocol',t1:'Protection',t2:'Videos',t3:'QR Code',eyes:'👁️ Eyes',skin:'🖐️ Skin',nose:'👃 Inhalation',mouth:'👄 Ingestion','welcome-title':'About This Platform','welcome-p1':'This platform was created to provide quick, clear, and reliable access to emergency protocols, safety information, and protective equipment used in dental laboratories.','welcome-p2':'NUVIA Dental Safety centralizes essential guidelines for the safe handling of materials and for acting effectively in case of exposure or injury. Its goal is to reduce response time to incidents, support informed decision-making, and foster a safety culture for all people who work in or visit the laboratory.','welcome-p3':'This resource is designed to be:','welcome-li1':'Easy to use','welcome-li2':'Accessible from any device','welcome-li3':'Useful in real emergencies, training sessions, and audits','welcome-priority':'Your safety is a priority. If in doubt, follow emergency protocols and seek immediate medical attention.'},
+ui:{emBtn:'Emergency',title:'Dental Laboratory Safety System',subtitle:'Fast access to emergency protocols, material safety data, and protective equipment guidelines for dental laboratory professionals.',search:'Search materials...',ft:'Filter Materials',f0:'All',f1:'Acids',f2:'Resins',f3:'Solvents',f4:'Metals',f5:'Others',view:'View Details','urgent-title':'Urgent Care Centers - Denver Area','forms-title':'Downloadable Forms',form1:'First Report of Injury Form','form1-desc':'Complete within 24 hours of any workplace injury or chemical exposure',t0:'Emergency Protocol',t1:'Protection',t2:'Videos',t3:'QR Code',eyes:'👁️ Eyes',skin:'🖐️ Skin',nose:'👃 Inhalation',mouth:'👄 Ingestion','welcome-title':'About This Platform','welcome-p1':'This platform was created to provide quick, clear, and reliable access to emergency protocols, safety information, and protective equipment used in dental laboratories.','welcome-p2':'NUVIA Dental Safety centralizes essential guidelines for the safe handling of materials and for acting effectively in case of exposure or injury. Its goal is to reduce response time to incidents, support informed decision-making, and foster a safety culture for all people who work in or visit the laboratory.','welcome-priority':'Your safety is a priority. If in doubt, follow emergency protocols and seek immediate medical attention.'},
 cats:{acids:'Acids',resins:'Resins',solvents:'Solvents',metals:'Metals',others:'Others'},
 materials:[
 {id:'hf',name:'Hydrofluoric Acid (HF)',cat:'acids',icon:'⚗️',risk:'danger',riskL:'High',desc:'Ceramic etching. Extremely corrosive. Systemic toxicity.',exposure:{eyes:'Rinse immediately 15-30 minutes with warm water. Hold eyelids open. Seek emergency care IMMEDIATELY',skin:'Remove contaminated clothing. Wash with water 15+ minutes. Apply calcium gluconate gel 2.5%. Call 911',nose:'Move to fresh air immediately. If difficulty breathing call 911. Monitor for delayed symptoms',mouth:'Do NOT induce vomiting. Rinse mouth. Drink water. Call 911 immediately'},alerts:[{t:'red',h:'CRITICAL',i:['Can cause cardiac arrest from hypocalcemia','Pain may appear hours after exposure','Always requires emergency medical attention']}],epp:['Safety goggles required','Nitrile gloves ≥4mil','Polypropylene coat','FFP2','Waterproof apron'],videos:[{title:'Hydrofluoric Acid Safety',url:'https://www.youtube.com/embed/oipYLUJFZqs'},{title:'HF Emergency Response',url:'https://www.youtube.com/embed/5O6HPjFcZ9Y'}]},
@@ -224,7 +219,7 @@ urgent:[
 ]
 },
 es:{
-ui:{emBtn:'Emergencia',title:'Sistema de Seguridad para Laboratorio Dental',subtitle:'Acceso rápido a protocolos de emergencia, datos de seguridad de materiales y guías de equipo de protección para profesionales de laboratorio dental.',search:'Buscar materiales...',ft:'Filtrar Materiales',f0:'Todos',f1:'Ácidos',f2:'Resinas',f3:'Solventes',f4:'Metales',f5:'Otros',view:'Ver Detalles','urgent-title':'Centros de Atención Urgente - Área Denver','forms-title':'Formularios Descargables',form1:'Primer Reporte de Lesión','form1-desc':'Completar dentro de 24 horas de cualquier lesión laboral o exposición química',t0:'Protocolo Emergencia',t1:'Protección',t2:'Videos',t3:'Código QR',eyes:'👁️ Ojos',skin:'🖐️ Piel',nose:'👃 Inhalación',mouth:'👄 Ingestión','welcome-title':'Acerca de Esta Plataforma','welcome-p1':'Esta plataforma fue creada para brindar acceso rápido, claro y confiable a protocolos de emergencia, información de seguridad y equipos de protección utilizados en laboratorios dentales.','welcome-p2':'NUVIA Dental Safety centraliza las guías esenciales para el manejo seguro de materiales y para actuar de manera efectiva en caso de exposición o lesión. Su objetivo es reducir el tiempo de respuesta ante incidentes, apoyar la toma de decisiones informadas y fomentar una cultura de seguridad para todas las personas que trabajan o visitan el laboratorio.','welcome-p3':'Este recurso está diseñado para ser:','welcome-li1':'Fácil de usar','welcome-li2':'Accesible desde cualquier dispositivo','welcome-li3':'Útil en emergencias reales, capacitaciones y auditorías','welcome-priority':'Tu seguridad es una prioridad. Ante cualquier duda, sigue los protocolos de emergencia y busca atención médica de inmediato.'},
+ui:{emBtn:'Emergencia',title:'Sistema de Seguridad para Laboratorio Dental',subtitle:'Acceso rápido a protocolos de emergencia, datos de seguridad de materiales y guías de equipo de protección para profesionales de laboratorio dental.',search:'Buscar materiales...',ft:'Filtrar Materiales',f0:'Todos',f1:'Ácidos',f2:'Resinas',f3:'Solventes',f4:'Metales',f5:'Otros',view:'Ver Detalles','urgent-title':'Centros de Atención Urgente - Área Denver','forms-title':'Formularios Descargables',form1:'Primer Reporte de Lesión','form1-desc':'Completar dentro de 24 horas de cualquier lesión laboral o exposición química',t0:'Protocolo Emergencia',t1:'Protección',t2:'Videos',t3:'Código QR',eyes:'👁️ Ojos',skin:'🖐️ Piel',nose:'👃 Inhalación',mouth:'👄 Ingestión','welcome-title':'Acerca de Esta Plataforma','welcome-p1':'Esta plataforma fue creada para brindar acceso rápido, claro y confiable a protocolos de emergencia, información de seguridad y equipos de protección utilizados en laboratorios dentales.','welcome-p2':'NUVIA Dental Safety centraliza las guías esenciales para el manejo seguro de materiales y para actuar de manera efectiva en caso de exposición o lesión. Su objetivo es reducir el tiempo de respuesta ante incidentes, apoyar la toma de decisiones informadas y fomentar una cultura de seguridad para todas las personas que trabajan o visitan el laboratorio.','welcome-priority':'Tu seguridad es una prioridad. Ante cualquier duda, sigue los protocolos de emergencia y busca atención médica de inmediato.'},
 cats:{acids:'Ácidos',resins:'Resinas',solvents:'Solventes',metals:'Metales',others:'Otros'},
 materials:[
 {id:'hf',name:'Ácido Fluorhídrico (HF)',cat:'acids',icon:'⚗️',risk:'danger',riskL:'Alto',desc:'Grabado cerámica. Extremadamente corrosivo. Toxicidad sistémica.',exposure:{eyes:'Enjuagar inmediatamente 15-30 minutos con agua tibia. Mantener párpados abiertos. Buscar atención de emergencia INMEDIATAMENTE',skin:'Quitar ropa contaminada. Lavar con agua 15+ minutos. Aplicar gel gluconato de calcio 2.5%. Llamar 911',nose:'Mover a aire fresco inmediatamente. Si dificultad para respirar llamar 911. Monitorear síntomas tardíos',mouth:'NO inducir vómito. Enjuagar boca. Beber agua. Llamar 911 inmediatamente'},alerts:[{t:'red',h:'CRÍTICO',i:['Puede causar paro cardíaco por hipocalcemia','Dolor puede aparecer horas después de exposición','Siempre requiere atención médica de emergencia']}],epp:['Gafas protectoras requeridas','Guantes nitrilo ≥4mil','Bata polipropileno','FFP2','Delantal impermeable'],videos:[{title:'Seguridad Ácido Fluorhídrico',url:'https://www.youtube.com/embed/oipYLUJFZqs'},{title:'Respuesta Emergencia HF',url:'https://www.youtube.com/embed/5O6HPjFcZ9Y'}]},
