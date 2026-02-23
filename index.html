@@ -390,6 +390,7 @@ urgent:[
 let L='en',F='all',C=DB.en;
 function setLang(l){
 L=l;C=DB[l];
+localStorage.setItem('lang', l);
 document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent===l.toUpperCase()));
 Object.keys(C.ui).forEach(k=>{const el=document.getElementById(k);if(el)el.textContent=C.ui[k]});
 document.getElementById('search').placeholder=C.ui.search;
@@ -470,8 +471,26 @@ b.classList.add('active');
 document.getElementById('p'+n).classList.add('active');
 }
 render();renderUrgent();
+
+// Check for saved language preference
+const savedLang = localStorage.getItem('lang');
+if(savedLang && (savedLang === 'en' || savedLang === 'es')) {
+  setLang(savedLang);
+}
+
+// Handle QR code scanning - open material from URL parameter
 const urlM=new URLSearchParams(location.search).get('m');
-if(urlM){const mat=C.materials.find(x=>x.id===urlM);if(mat)openM(mat.id)}
+if(urlM){
+  console.log('QR Code detected! Material ID:', urlM);
+  const mat=C.materials.find(x=>x.id===urlM);
+  if(mat){
+    console.log('Material found:', mat.name);
+    // Wait a bit for page to fully load, then open modal
+    setTimeout(() => openM(mat.id), 300);
+  } else {
+    console.error('Material not found with ID:', urlM);
+  }
+}
 
 // ========================================
 // INCIDENT REPORT FORM HANDLER
