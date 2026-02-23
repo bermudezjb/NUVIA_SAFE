@@ -12,6 +12,137 @@
 :root{color-scheme:light only}
 *{margin:0;padding:0;box-sizing:border-box;color-scheme:light!important}
 html{scroll-behavior:smooth;background:#fff!important;color-scheme:light!important;background-color:#fff!important}
+  <section id="incident-report" class="section">
+<p class="section-title">Report Incident / Reportar Incidente</p>
+
+<div style="max-width:700px;margin:0 auto">
+  <div style="background:#fef5f5;border-left:4px solid #d32f2f;padding:1rem;margin-bottom:2rem">
+    <h4 style="color:#d32f2f;margin:0 0 .5rem 0">⚠️ FOR EMERGENCIES CALL 911 FIRST</h4>
+    <p style="margin:0;font-size:13px;color:#666">Use this form AFTER emergency response</p>
+  </div>
+
+  <form id="incidentForm" style="display:grid;gap:1rem">
+    <input type="text" name="reporterName" placeholder="Your Name *" required 
+      style="width:100%;padding:.75rem;border:1px solid #e5e5e5;font:inherit">
+    
+    <input type="text" name="employeeId" placeholder="Employee ID (optional)"
+      style="width:100%;padding:.75rem;border:1px solid #e5e5e5;font:inherit">
+    
+    <select name="materialInvolved" required 
+      style="width:100%;padding:.75rem;border:1px solid #e5e5e5;font:inherit">
+      <option value="">Select Material *</option>
+      <option>Hydrofluoric Acid</option>
+      <option>Phosphoric Acid</option>
+      <option>Acrylic Monomer</option>
+      <option>Acetone</option>
+      <option>Nickel-Chromium</option>
+      <option>Liquid Nitrogen</option>
+      <option>Hydrochloric Acid</option>
+      <option>Other</option>
+    </select>
+    
+    <select name="incidentType" required 
+      style="width:100%;padding:.75rem;border:1px solid #e5e5e5;font:inherit">
+      <option value="">Incident Type *</option>
+      <option>Chemical Splash</option>
+      <option>Skin Contact</option>
+      <option>Inhalation</option>
+      <option>Ingestion</option>
+      <option>Burn</option>
+      <option>Spill</option>
+      <option>Near Miss</option>
+    </select>
+    
+    <select name="bodyPartAffected" required 
+      style="width:100%;padding:.75rem;border:1px solid #e5e5e5;font:inherit">
+      <option value="">Body Part Affected *</option>
+      <option>Eyes</option>
+      <option>Skin - Hands</option>
+      <option>Skin - Face</option>
+      <option>Respiratory System</option>
+      <option>Mouth</option>
+      <option>None (Near Miss)</option>
+    </select>
+    
+    <select name="severity" required 
+      style="width:100%;padding:.75rem;border:1px solid #e5e5e5;font:inherit">
+      <option value="">Severity *</option>
+      <option>Critical</option>
+      <option>High</option>
+      <option>Medium</option>
+      <option>Low</option>
+    </select>
+    
+    <textarea name="description" required rows="4" 
+      placeholder="Describe what happened... *"
+      style="width:100%;padding:.75rem;border:1px solid #e5e5e5;font:inherit"></textarea>
+    
+    <textarea name="actionsTaken" required rows="3" 
+      placeholder="What actions were taken immediately? *"
+      style="width:100%;padding:.75rem;border:1px solid #e5e5e5;font:inherit"></textarea>
+    
+    <select name="medicalAttention" required 
+      style="width:100%;padding:.75rem;border:1px solid #e5e5e5;font:inherit">
+      <option value="">Medical Attention? *</option>
+      <option>911 Called</option>
+      <option>Urgent Care</option>
+      <option>First Aid Only</option>
+      <option>None</option>
+    </select>
+    
+    <input type="text" name="location" placeholder="Location *" required
+      style="width:100%;padding:.75rem;border:1px solid #e5e5e5;font:inherit">
+    
+    <input type="text" name="witnesses" placeholder="Witnesses (optional)"
+      style="width:100%;padding:.75rem;border:1px solid #e5e5e5;font:inherit">
+    
+    <button type="submit" class="emergency-btn" style="width:100%">
+      Submit Report
+    </button>
+  </form>
+
+  <div id="status" style="display:none;margin-top:1rem;padding:1rem;border-radius:4px"></div>
+</div>
+</section>
+
+<script>
+const SCRIPT_URL = 'AKfycbwJjwICqvZYTlM0iB9f7RsGb9Bdw7n60uX9CFDRTnnma5yAYivUhr6Uk41-WhCxIGy_jA';  // ⚠️ CAMBIA ESTO
+
+document.getElementById('incidentForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const btn = e.target.querySelector('button');
+  const status = document.getElementById('status');
+  
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+  
+  const data = Object.fromEntries(new FormData(e.target));
+  
+  try {
+    await fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: JSON.stringify(data)
+    });
+    
+    status.style.display = 'block';
+    status.style.background = '#f1f8f4';
+    status.style.borderLeft = '4px solid #388e3c';
+    status.innerHTML = '<h4 style="color:#388e3c">✓ Report Submitted</h4><p>Manager has been notified.</p>';
+    
+    e.target.reset();
+  } catch (err) {
+    status.style.display = 'block';
+    status.style.background = '#fef5f5';
+    status.style.borderLeft = '4px solid #d32f2f';
+    status.innerHTML = '<h4 style="color:#d32f2f">✗ Error</h4><p>Please try again.</p>';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Submit Report';
+  }
+});
+</script>
 body{background:#fff!important;background-color:#fff!important;color:#000!important;font-family:'Work Sans',sans-serif;font-weight:300;font-size:15px;line-height:1.6}
 @media (prefers-color-scheme: dark){html{background:#fff!important;color-scheme:light!important}body{background:#fff!important;color:#000!important}}
 header{position:fixed;top:0;left:0;right:0;background:#fff!important;border-bottom:1px solid #e5e5e5;z-index:100;padding:1.5rem 0}
