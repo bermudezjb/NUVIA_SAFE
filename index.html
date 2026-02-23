@@ -21,17 +21,17 @@ header{position:fixed;top:0;left:0;right:0;background:#fff!important;border-bott
 .header-right{display:flex;gap:1rem;align-items:center}
 .lang-toggle{display:flex;background:#f5f5f5;border:1px solid #e5e5e5;border-radius:4px;overflow:hidden}
 .lang-btn{background:transparent;border:none;padding:.5rem .75rem;font:inherit;font-size:12px;font-weight:500;cursor:pointer;text-transform:uppercase;letter-spacing:.05em;color:#666;transition:all .2s}
-.lang-btn.active{background:#000;color:#fff}
+.lang-btn.active{background:#1e3a8a;color:#fff}
 .lang-btn:hover:not(.active){background:#eee}
-.emergency-btn{background:#000;color:#fff;border:none;padding:.75rem 1.5rem;font:inherit;font-size:13px;cursor:pointer;transition:opacity .2s}
+.emergency-btn{background:#d32f2f;color:#fff;border:none;padding:.75rem 1.5rem;font:inherit;font-size:13px;cursor:pointer;transition:opacity .2s}
 .emergency-btn:hover{opacity:.8}
 .main{padding-top:80px;background:#fff!important}
 .hero{max-width:1400px;margin:0 auto;padding:8rem 3rem 6rem;background:#fff!important}
 .hero h1{font-size:48px;font-weight:300;line-height:1.2;margin-bottom:1.5rem;color:#000!important}
 .hero p{font-size:17px;color:#666;margin-bottom:2.5rem;max-width:700px}
 .search-box{position:relative;max-width:500px}
-.search-box input{width:100%;border:1px solid #e5e5e5;padding:1rem 1rem 1rem 3rem;font:inherit;font-size:15px;outline:none;transition:border-color .2s}
-.search-box input:focus{border-color:#000}
+.search-box input{width:100%;border:1px solid #e5e5e5;padding:1rem 1rem 1rem 3rem;font:inherit;font-size:15px;outline:none;transition:border-color .2s;background:#fff!important;color:#000!important}
+.search-box input:focus{border-color:#1e3a8a}
 .search-icon{position:absolute;left:1rem;top:50%;transform:translateY(-50%);width:16px;opacity:.4}
 .welcome-section{max-width:700px;margin:2rem 0;padding:1.5rem;border:1px solid #e5e5e5;background:#fafafa}
 .welcome-section h3{font-size:14px;font-weight:600;margin-bottom:1rem;text-transform:uppercase;letter-spacing:.08em;color:#1e3a8a}
@@ -39,12 +39,12 @@ header{position:fixed;top:0;left:0;right:0;background:#fff!important;border-bott
 .welcome-section ul{margin-left:1.5rem;margin-bottom:1rem}
 .welcome-section li{font-size:14px;line-height:1.8;color:#333;margin-bottom:.5rem}
 .welcome-section .priority{font-weight:600;color:#d32f2f;font-size:14px;margin-top:1rem;padding-top:1rem;border-top:1px solid #e5e5e5}
-.section{max-width:1400px;margin:0 auto;padding:4rem 3rem;border-bottom:1px solid #e5e5e5}
+.section{max-width:1400px;margin:0 auto;padding:4rem 3rem;border-bottom:1px solid #e5e5e5;background:#fff!important}
 .section-title{font-size:13px;text-transform:uppercase;letter-spacing:.15em;color:#999;margin-bottom:1.5rem}
 .filters{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
 .filter-btn{background:#fff;border:1px solid #e5e5e5;color:#666;padding:.5rem 1rem;font:inherit;font-size:13px;cursor:pointer;transition:all .2s}
-.filter-btn:hover{border-color:#000;color:#000}
-.filter-btn.active{background:#000;color:#fff}
+.filter-btn:hover{border-color:#1e3a8a;color:#1e3a8a}
+.filter-btn.active{background:#1e3a8a;color:#fff;border-color:#1e3a8a}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1px;background:#e5e5e5;border:1px solid #e5e5e5}
 .card{background:#fff!important;padding:2.5rem;cursor:pointer;transition:background .15s;color:#000!important}
 .card:hover{background:#fafafa!important}
@@ -109,6 +109,23 @@ footer{border-top:1px solid #e5e5e5;padding:3rem;text-align:center;background:#f
 </style>
 </head>
 <body>
+<script>
+// FORCE WHITE BACKGROUND - Override any dark mode
+(function(){
+const s=document.createElement('style');
+s.id='force-white';
+s.textContent=`
+html,body{background:#fff!important;background-color:#fff!important;color:#000!important;filter:none!important;-webkit-filter:none!important}
+*{color-scheme:light!important}
+@media(prefers-color-scheme:dark){
+html,body{background:#fff!important;color:#000!important;filter:invert(0)!important}
+}
+`;
+document.head.insertBefore(s,document.head.firstChild);
+document.documentElement.style.cssText='background:#fff!important;color-scheme:light!important';
+document.body.style.cssText='background:#fff!important;color:#000!important';
+})();
+</script>
 <header>
 <div class="header-inner">
 <div class="logo">NUVIA<span class="logo-safe">Safe</span></div>
@@ -117,7 +134,6 @@ footer{border-top:1px solid #e5e5e5;padding:3rem;text-align:center;background:#f
 <button class="lang-btn active" onclick="setLang('en')">EN</button>
 <button class="lang-btn" onclick="setLang('es')">ES</button>
 </div>
-<button class="emergency-btn" onclick="openEmergency()" id="emBtn">Emergency</button>
 </div>
 </div>
 </header>
@@ -166,6 +182,138 @@ footer{border-top:1px solid #e5e5e5;padding:3rem;text-align:center;background:#f
 <a href="First_Report_of_Injury_Form.pdf" download class="emergency-btn" style="display:inline-block;margin-top:1rem;text-decoration:none">Download PDF</a>
 </div>
 </section>
+
+<section id="incident-report" class="section">
+<p class="section-title" id="incident-title">Report Incident Online</p>
+
+<div style="max-width:700px;margin:0 auto">
+  <div style="background:#fef5f5;border-left:4px solid #d32f2f;padding:1.5rem;margin-bottom:2rem">
+    <h4 style="color:#d32f2f;font-size:14px;margin-bottom:.5rem" id="incident-warning">⚠️ CRITICAL: FOR EMERGENCIES CALL 911 FIRST</h4>
+    <p style="font-size:13px;color:#666;margin:0" id="incident-subtitle">Use this form to document incidents AFTER emergency response</p>
+  </div>
+
+  <form id="incidentForm" style="display:grid;gap:1.5rem">
+    <div>
+      <label style="display:block;font-weight:500;margin-bottom:.5rem;font-size:14px" id="label-reporter-name">Reporter Name *</label>
+      <input type="text" name="reporterName" required id="input-reporter-name"
+        style="width:100%;padding:.75rem;border:1px solid #e5e5e5;font:inherit;background:#fff!important;color:#000!important">
+    </div>
+
+    <div>
+      <label style="display:block;font-weight:500;margin-bottom:.5rem;font-size:14px" id="label-employee-id">Employee ID (optional)</label>
+      <input type="text" name="employeeId" id="input-employee-id"
+        style="width:100%;padding:.75rem;border:1px solid #e5e5e5;font:inherit;background:#fff!important;color:#000!important">
+    </div>
+
+    <div>
+      <label style="display:block;font-weight:500;margin-bottom:.5rem;font-size:14px" id="label-material">Material Involved *</label>
+      <select name="materialInvolved" required id="select-material"
+        style="width:100%;padding:.75rem;border:1px solid #e5e5e5;font:inherit;background:#fff!important;color:#000!important">
+        <option value="" id="opt-select-material">Select material...</option>
+        <option>Hydrofluoric Acid</option>
+        <option>Phosphoric Acid</option>
+        <option>Acrylic Monomer</option>
+        <option>Acetone</option>
+        <option>Nickel-Chromium</option>
+        <option>Liquid Nitrogen</option>
+        <option>Hydrochloric Acid</option>
+        <option id="opt-other">Other</option>
+      </select>
+    </div>
+
+    <div>
+      <label style="display:block;font-weight:500;margin-bottom:.5rem;font-size:14px" id="label-incident-type">Incident Type *</label>
+      <select name="incidentType" required id="select-incident-type"
+        style="width:100%;padding:.75rem;border:1px solid #e5e5e5;font:inherit;background:#fff!important;color:#000!important">
+        <option value="" id="opt-select-type">Select type...</option>
+        <option id="opt-splash">Chemical Splash</option>
+        <option id="opt-contact">Skin Contact</option>
+        <option id="opt-inhalation">Inhalation</option>
+        <option id="opt-ingestion">Ingestion</option>
+        <option id="opt-burn">Burn (Thermal/Chemical)</option>
+        <option id="opt-spill">Spill</option>
+        <option id="opt-nearmiss">Near Miss</option>
+        <option id="opt-other-type">Other</option>
+      </select>
+    </div>
+
+    <div>
+      <label style="display:block;font-weight:500;margin-bottom:.5rem;font-size:14px" id="label-body-part">Body Part Affected *</label>
+      <select name="bodyPartAffected" required id="select-body-part"
+        style="width:100%;padding:.75rem;border:1px solid #e5e5e5;font:inherit;background:#fff!important;color:#000!important">
+        <option value="" id="opt-select-body">Select...</option>
+        <option id="opt-eyes">Eyes</option>
+        <option id="opt-hands">Skin - Hands</option>
+        <option id="opt-arms">Skin - Arms</option>
+        <option id="opt-face">Skin - Face</option>
+        <option id="opt-respiratory">Respiratory System</option>
+        <option id="opt-mouth">Mouth/Digestive</option>
+        <option id="opt-none">None (Near Miss)</option>
+        <option id="opt-other-body">Other</option>
+      </select>
+    </div>
+
+    <div>
+      <label style="display:block;font-weight:500;margin-bottom:.5rem;font-size:14px" id="label-severity">Severity *</label>
+      <select name="severity" required id="select-severity"
+        style="width:100%;padding:.75rem;border:1px solid #e5e5e5;font:inherit;background:#fff!important;color:#000!important">
+        <option value="" id="opt-select-severity">Select...</option>
+        <option id="opt-critical">Critical (Life-threatening)</option>
+        <option id="opt-high">High (Requires immediate medical attention)</option>
+        <option id="opt-medium">Medium (First aid administered)</option>
+        <option id="opt-low">Low (Minor/Near miss)</option>
+      </select>
+    </div>
+
+    <div>
+      <label style="display:block;font-weight:500;margin-bottom:.5rem;font-size:14px" id="label-description">Incident Description *</label>
+      <textarea name="description" required rows="4" id="input-description"
+        style="width:100%;padding:.75rem;border:1px solid #e5e5e5;font:inherit;resize:vertical;background:#fff!important;color:#000!important"></textarea>
+    </div>
+
+    <div>
+      <label style="display:block;font-weight:500;margin-bottom:.5rem;font-size:14px" id="label-actions">Immediate Actions Taken *</label>
+      <textarea name="actionsTaken" required rows="3" id="input-actions"
+        style="width:100%;padding:.75rem;border:1px solid #e5e5e5;font:inherit;resize:vertical;background:#fff!important;color:#000!important"></textarea>
+    </div>
+
+    <div>
+      <label style="display:block;font-weight:500;margin-bottom:.5rem;font-size:14px" id="label-medical">Medical Attention Required? *</label>
+      <select name="medicalAttention" required id="select-medical"
+        style="width:100%;padding:.75rem;border:1px solid #e5e5e5;font:inherit;background:#fff!important;color:#000!important">
+        <option value="" id="opt-select-medical">Select...</option>
+        <option id="opt-911">911 Called</option>
+        <option id="opt-urgent">Urgent Care</option>
+        <option id="opt-firstaid">First Aid Only</option>
+        <option id="opt-nomedical">None</option>
+      </select>
+    </div>
+
+    <div>
+      <label style="display:block;font-weight:500;margin-bottom:.5rem;font-size:14px" id="label-location">Location *</label>
+      <input type="text" name="location" required id="input-location"
+        style="width:100%;padding:.75rem;border:1px solid #e5e5e5;font:inherit;background:#fff!important;color:#000!important">
+    </div>
+
+    <div>
+      <label style="display:block;font-weight:500;margin-bottom:.5rem;font-size:14px" id="label-witnesses">Witnesses (optional)</label>
+      <input type="text" name="witnesses" id="input-witnesses"
+        style="width:100%;padding:.75rem;border:1px solid #e5e5e5;font:inherit;background:#fff!important;color:#000!important">
+    </div>
+
+    <div style="background:#f5f5f5;padding:1.5rem;border:1px solid #e5e5e5">
+      <p style="font-size:13px;color:#666;margin-bottom:1rem" id="incident-confirm">
+        By submitting this report, I confirm that the information provided is accurate to the best of my knowledge.
+      </p>
+      <button type="submit" class="emergency-btn" style="width:100%;font-size:15px" id="incident-submit">
+        Submit Incident Report
+      </button>
+    </div>
+  </form>
+
+  <div id="incidentStatus" style="display:none;margin-top:2rem;padding:1.5rem;border-radius:4px"></div>
+</div>
+</section>
 </main>
 
 <footer>
@@ -199,7 +347,7 @@ footer{border-top:1px solid #e5e5e5;padding:3rem;text-align:center;background:#f
 <script>
 const DB={
 en:{
-ui:{emBtn:'Emergency',title:'Dental Laboratory Safety System',subtitle:'Fast access to emergency protocols, material safety data, and protective equipment guidelines for dental laboratory professionals.',search:'Search materials...',ft:'Filter Materials',f0:'All',f1:'Acids',f2:'Resins',f3:'Solvents',f4:'Metals',f5:'Others',view:'View Details','urgent-title':'Urgent Care Centers - Denver Area','forms-title':'Downloadable Forms',form1:'First Report of Injury Form','form1-desc':'Complete within 24 hours of any workplace injury or chemical exposure',t0:'Emergency Protocol',t1:'Protection',t2:'Videos',t3:'QR Code',eyes:'👁️ Eyes',skin:'🖐️ Skin',nose:'👃 Inhalation',mouth:'👄 Ingestion','welcome-title':'About This Platform','welcome-p1':'This platform was created to provide quick, clear, and reliable access to emergency protocols, safety information, and protective equipment used in dental laboratories.','welcome-p2':'NUVIA Dental Safety centralizes essential guidelines for the safe handling of materials and for acting effectively in case of exposure or injury. Its goal is to reduce response time to incidents, support informed decision-making, and foster a safety culture for all people who work in or visit the laboratory.','welcome-priority':'Your safety is a priority. If in doubt, follow emergency protocols and seek immediate medical attention.'},
+ui:{title:'Dental Laboratory Safety System',subtitle:'Fast access to emergency protocols, material safety data, and protective equipment guidelines for dental laboratory professionals.',search:'Search materials...',ft:'Filter Materials',f0:'All',f1:'Acids',f2:'Resins',f3:'Solvents',f4:'Metals',f5:'Others',view:'View Details','urgent-title':'Urgent Care Centers - Denver Area','forms-title':'Downloadable Forms',form1:'First Report of Injury Form','form1-desc':'Complete within 24 hours of any workplace injury or chemical exposure','incident-title':'Report Incident Online','incident-warning':'⚠️ CRITICAL: FOR EMERGENCIES CALL 911 FIRST','incident-subtitle':'Use this form to document incidents AFTER emergency response','label-reporter-name':'Reporter Name *','label-employee-id':'Employee ID (optional)','label-material':'Material Involved *','opt-select-material':'Select material...','opt-other':'Other','label-incident-type':'Incident Type *','opt-select-type':'Select type...','opt-splash':'Chemical Splash','opt-contact':'Skin Contact','opt-inhalation':'Inhalation','opt-ingestion':'Ingestion','opt-burn':'Burn (Thermal/Chemical)','opt-spill':'Spill','opt-nearmiss':'Near Miss','opt-other-type':'Other','label-body-part':'Body Part Affected *','opt-select-body':'Select...','opt-eyes':'Eyes','opt-hands':'Skin - Hands','opt-arms':'Skin - Arms','opt-face':'Skin - Face','opt-respiratory':'Respiratory System','opt-mouth':'Mouth/Digestive','opt-none':'None (Near Miss)','opt-other-body':'Other','label-severity':'Severity *','opt-select-severity':'Select...','opt-critical':'Critical (Life-threatening)','opt-high':'High (Requires immediate medical attention)','opt-medium':'Medium (First aid administered)','opt-low':'Low (Minor/Near miss)','label-description':'Incident Description *','ph-description':'Describe what happened, when, and how...','label-actions':'Immediate Actions Taken *','ph-actions':'What steps were taken immediately after the incident?','label-medical':'Medical Attention Required? *','opt-select-medical':'Select...','opt-911':'911 Called','opt-urgent':'Urgent Care','opt-firstaid':'First Aid Only','opt-nomedical':'None','label-location':'Location *','ph-location':'Lab area, workstation, etc.','label-witnesses':'Witnesses (optional)','ph-witnesses':'Names of witnesses, if any','incident-confirm':'By submitting this report, I confirm that the information provided is accurate to the best of my knowledge.','incident-submit':'Submit Incident Report',t0:'Emergency Protocol',t1:'Protection',t2:'Videos',t3:'QR Code',eyes:'👁️ Eyes',skin:'🖐️ Skin',nose:'👃 Inhalation',mouth:'👄 Ingestion','welcome-title':'About This Platform','welcome-p1':'This platform was created to provide quick, clear, and reliable access to emergency protocols, safety information, and protective equipment used in dental laboratories.','welcome-p2':'NUVIA Dental Safety centralizes essential guidelines for the safe handling of materials and for acting effectively in case of exposure or injury. Its goal is to reduce response time to incidents, support informed decision-making, and foster a safety culture for all people who work in or visit the laboratory.','welcome-priority':'Your safety is a priority. If in doubt, follow emergency protocols and seek immediate medical attention.'},
 cats:{acids:'Acids',resins:'Resins',solvents:'Solvents',metals:'Metals',others:'Others'},
 materials:[
 {id:'hf',name:'Hydrofluoric Acid (HF)',cat:'acids',icon:'⚗️',risk:'danger',riskL:'High',desc:'Ceramic etching. Extremely corrosive. Systemic toxicity.',exposure:{eyes:'Rinse immediately 15-30 minutes with warm water. Hold eyelids open. Seek emergency care IMMEDIATELY',skin:'Remove contaminated clothing. Wash with water 15+ minutes. Apply calcium gluconate gel 2.5%. Call 911',nose:'Move to fresh air immediately. If difficulty breathing call 911. Monitor for delayed symptoms',mouth:'Do NOT induce vomiting. Rinse mouth. Drink water. Call 911 immediately'},alerts:[{t:'red',h:'CRITICAL',i:['Can cause cardiac arrest from hypocalcemia','Pain may appear hours after exposure','Always requires emergency medical attention']}],epp:['Safety goggles required','Nitrile gloves ≥4mil','Polypropylene coat','FFP2','Waterproof apron'],videos:[{title:'Hydrofluoric Acid Safety',url:'https://www.youtube.com/embed/oipYLUJFZqs'},{title:'HF Emergency Response',url:'https://www.youtube.com/embed/5O6HPjFcZ9Y'}]},
@@ -219,7 +367,7 @@ urgent:[
 ]
 },
 es:{
-ui:{emBtn:'Emergencia',title:'Sistema de Seguridad para Laboratorio Dental',subtitle:'Acceso rápido a protocolos de emergencia, datos de seguridad de materiales y guías de equipo de protección para profesionales de laboratorio dental.',search:'Buscar materiales...',ft:'Filtrar Materiales',f0:'Todos',f1:'Ácidos',f2:'Resinas',f3:'Solventes',f4:'Metales',f5:'Otros',view:'Ver Detalles','urgent-title':'Centros de Atención Urgente - Área Denver','forms-title':'Formularios Descargables',form1:'Primer Reporte de Lesión','form1-desc':'Completar dentro de 24 horas de cualquier lesión laboral o exposición química',t0:'Protocolo Emergencia',t1:'Protección',t2:'Videos',t3:'Código QR',eyes:'👁️ Ojos',skin:'🖐️ Piel',nose:'👃 Inhalación',mouth:'👄 Ingestión','welcome-title':'Acerca de Esta Plataforma','welcome-p1':'Esta plataforma fue creada para brindar acceso rápido, claro y confiable a protocolos de emergencia, información de seguridad y equipos de protección utilizados en laboratorios dentales.','welcome-p2':'NUVIA Dental Safety centraliza las guías esenciales para el manejo seguro de materiales y para actuar de manera efectiva en caso de exposición o lesión. Su objetivo es reducir el tiempo de respuesta ante incidentes, apoyar la toma de decisiones informadas y fomentar una cultura de seguridad para todas las personas que trabajan o visitan el laboratorio.','welcome-priority':'Tu seguridad es una prioridad. Ante cualquier duda, sigue los protocolos de emergencia y busca atención médica de inmediato.'},
+ui:{title:'Sistema de Seguridad para Laboratorio Dental',subtitle:'Acceso rápido a protocolos de emergencia, datos de seguridad de materiales y guías de equipo de protección para profesionales de laboratorio dental.',search:'Buscar materiales...',ft:'Filtrar Materiales',f0:'Todos',f1:'Ácidos',f2:'Resinas',f3:'Solventes',f4:'Metales',f5:'Otros',view:'Ver Detalles','urgent-title':'Centros de Atención Urgente - Área Denver','forms-title':'Formularios Descargables',form1:'Primer Reporte de Lesión','form1-desc':'Completar dentro de 24 horas de cualquier lesión laboral o exposición química','incident-title':'Reportar Incidente Online','incident-warning':'⚠️ CRÍTICO: PARA EMERGENCIAS LLAME AL 911 PRIMERO','incident-subtitle':'Use este formulario para documentar incidentes DESPUÉS de la respuesta de emergencia','label-reporter-name':'Nombre del Reportero *','label-employee-id':'ID de Empleado (opcional)','label-material':'Material Involucrado *','opt-select-material':'Seleccionar material...','opt-other':'Otro','label-incident-type':'Tipo de Incidente *','opt-select-type':'Seleccionar tipo...','opt-splash':'Salpicadura Química','opt-contact':'Contacto con la Piel','opt-inhalation':'Inhalación','opt-ingestion':'Ingestión','opt-burn':'Quemadura (Térmica/Química)','opt-spill':'Derrame','opt-nearmiss':'Casi Accidente','opt-other-type':'Otro','label-body-part':'Parte del Cuerpo Afectada *','opt-select-body':'Seleccionar...','opt-eyes':'Ojos','opt-hands':'Piel - Manos','opt-arms':'Piel - Brazos','opt-face':'Piel - Cara','opt-respiratory':'Sistema Respiratorio','opt-mouth':'Boca/Digestivo','opt-none':'Ninguna (Casi Accidente)','opt-other-body':'Otro','label-severity':'Severidad *','opt-select-severity':'Seleccionar...','opt-critical':'Crítico (Amenaza de vida)','opt-high':'Alto (Requiere atención médica inmediata)','opt-medium':'Medio (Primeros auxilios administrados)','opt-low':'Bajo (Menor/Casi accidente)','label-description':'Descripción del Incidente *','ph-description':'Describa qué pasó, cuándo y cómo...','label-actions':'Acciones Inmediatas Tomadas *','ph-actions':'¿Qué pasos se tomaron inmediatamente después del incidente?','label-medical':'¿Se Requirió Atención Médica? *','opt-select-medical':'Seleccionar...','opt-911':'Llamada al 911','opt-urgent':'Atención Urgente','opt-firstaid':'Solo Primeros Auxilios','opt-nomedical':'Ninguna','label-location':'Ubicación *','ph-location':'Área del laboratorio, estación de trabajo, etc.','label-witnesses':'Testigos (opcional)','ph-witnesses':'Nombres de los testigos, si los hay','incident-confirm':'Al enviar este reporte, confirmo que la información proporcionada es precisa según mi conocimiento.','incident-submit':'Enviar Reporte de Incidente',t0:'Protocolo Emergencia',t1:'Protección',t2:'Videos',t3:'Código QR',eyes:'👁️ Ojos',skin:'🖐️ Piel',nose:'👃 Inhalación',mouth:'👄 Ingestión','welcome-title':'Acerca de Esta Plataforma','welcome-p1':'Esta plataforma fue creada para brindar acceso rápido, claro y confiable a protocolos de emergencia, información de seguridad y equipos de protección utilizados en laboratorios dentales.','welcome-p2':'NUVIA Dental Safety centraliza las guías esenciales para el manejo seguro de materiales y para actuar de manera efectiva en caso de exposición o lesión. Su objetivo es reducir el tiempo de respuesta ante incidentes, apoyar la toma de decisiones informadas y fomentar una cultura de seguridad para todas las personas que trabajan o visitan el laboratorio.','welcome-priority':'Tu seguridad es una prioridad. Ante cualquier duda, sigue los protocolos de emergencia y busca atención médica de inmediato.'},
 cats:{acids:'Ácidos',resins:'Resinas',solvents:'Solventes',metals:'Metales',others:'Otros'},
 materials:[
 {id:'hf',name:'Ácido Fluorhídrico (HF)',cat:'acids',icon:'⚗️',risk:'danger',riskL:'Alto',desc:'Grabado cerámica. Extremadamente corrosivo. Toxicidad sistémica.',exposure:{eyes:'Enjuagar inmediatamente 15-30 minutos con agua tibia. Mantener párpados abiertos. Buscar atención de emergencia INMEDIATAMENTE',skin:'Quitar ropa contaminada. Lavar con agua 15+ minutos. Aplicar gel gluconato de calcio 2.5%. Llamar 911',nose:'Mover a aire fresco inmediatamente. Si dificultad para respirar llamar 911. Monitorear síntomas tardíos',mouth:'NO inducir vómito. Enjuagar boca. Beber agua. Llamar 911 inmediatamente'},alerts:[{t:'red',h:'CRÍTICO',i:['Puede causar paro cardíaco por hipocalcemia','Dolor puede aparecer horas después de exposición','Siempre requiere atención médica de emergencia']}],epp:['Gafas protectoras requeridas','Guantes nitrilo ≥4mil','Bata polipropileno','FFP2','Delantal impermeable'],videos:[{title:'Seguridad Ácido Fluorhídrico',url:'https://www.youtube.com/embed/oipYLUJFZqs'},{title:'Respuesta Emergencia HF',url:'https://www.youtube.com/embed/5O6HPjFcZ9Y'}]},
@@ -245,6 +393,15 @@ L=l;C=DB[l];
 document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent===l.toUpperCase()));
 Object.keys(C.ui).forEach(k=>{const el=document.getElementById(k);if(el)el.textContent=C.ui[k]});
 document.getElementById('search').placeholder=C.ui.search;
+// Translate incident form placeholders
+const descInput = document.getElementById('input-description');
+const actionsInput = document.getElementById('input-actions');
+const locationInput = document.getElementById('input-location');
+const witnessesInput = document.getElementById('input-witnesses');
+if(descInput) descInput.placeholder = C.ui['ph-description'] || '';
+if(actionsInput) actionsInput.placeholder = C.ui['ph-actions'] || '';
+if(locationInput) locationInput.placeholder = C.ui['ph-location'] || '';
+if(witnessesInput) witnessesInput.placeholder = C.ui['ph-witnesses'] || '';
 render();renderUrgent();
 }
 function setFilter(f,b){
@@ -305,7 +462,6 @@ document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active'
 document.querySelectorAll('.tab-panel').forEach((p,i)=>p.classList.toggle('active',i===0));
 document.getElementById('modal').classList.add('open');
 }
-function openEmergency(){openM('hf')}
 function closeM(){document.getElementById('modal').classList.remove('open')}
 function switchTab(n,b){
 document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
@@ -316,6 +472,97 @@ document.getElementById('p'+n).classList.add('active');
 render();renderUrgent();
 const urlM=new URLSearchParams(location.search).get('m');
 if(urlM){const mat=C.materials.find(x=>x.id===urlM);if(mat)openM(mat.id)}
+
+// ========================================
+// INCIDENT REPORT FORM HANDLER
+// ========================================
+const INCIDENT_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwJjwICqvZYTlM0iB9f7RsGb9Bdw7n60uX9CFDRTnnma5yAYivUhr6Uk41-WhCxIGy_jA/exec';
+
+const incidentForm = document.getElementById('incidentForm');
+if (incidentForm) {
+  incidentForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const statusDiv = document.getElementById('incidentStatus');
+    const originalBtnText = submitBtn.textContent;
+    
+    // Disable button
+    submitBtn.disabled = true;
+    submitBtn.textContent = L === 'es' ? 'Enviando...' : 'Submitting...';
+    submitBtn.style.opacity = '0.6';
+    
+    // Collect form data
+    const formData = new FormData(e.target);
+    const incident = Object.fromEntries(formData.entries());
+    
+    try {
+      // Send to Google Apps Script
+      await fetch(INCIDENT_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(incident)
+      });
+      
+      // Show success message
+      statusDiv.style.display = 'block';
+      statusDiv.style.background = '#f1f8f4';
+      statusDiv.style.borderLeft = '4px solid #388e3c';
+      statusDiv.style.color = '#000';
+      
+      if (L === 'es') {
+        statusDiv.innerHTML = `
+          <h4 style="color:#388e3c;margin:0 0 .5rem 0;font-size:16px">✓ Reporte Enviado Exitosamente</h4>
+          <p style="margin:0;font-size:14px;color:#666">El manager ha sido notificado por email.</p>
+          <p style="margin:.5rem 0 0 0;font-size:13px;color:#999">Recibirás confirmación en breve.</p>
+        `;
+      } else {
+        statusDiv.innerHTML = `
+          <h4 style="color:#388e3c;margin:0 0 .5rem 0;font-size:16px">✓ Report Submitted Successfully</h4>
+          <p style="margin:0;font-size:14px;color:#666">Manager has been notified via email.</p>
+          <p style="margin:.5rem 0 0 0;font-size:13px;color:#999">You will receive confirmation shortly.</p>
+        `;
+      }
+      
+      // Reset form
+      e.target.reset();
+      
+      // Scroll to status
+      setTimeout(() => {
+        statusDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 100);
+      
+    } catch (error) {
+      // Show error message
+      statusDiv.style.display = 'block';
+      statusDiv.style.background = '#fef5f5';
+      statusDiv.style.borderLeft = '4px solid #d32f2f';
+      statusDiv.style.color = '#000';
+      
+      if (L === 'es') {
+        statusDiv.innerHTML = `
+          <h4 style="color:#d32f2f;margin:0 0 .5rem 0">✗ Error al Enviar</h4>
+          <p style="margin:0;font-size:14px;color:#666">${error.message}</p>
+          <p style="margin:.5rem 0 0 0;font-size:13px;color:#999">Por favor intenta de nuevo o contacta a tu manager directamente.</p>
+        `;
+      } else {
+        statusDiv.innerHTML = `
+          <h4 style="color:#d32f2f;margin:0 0 .5rem 0">✗ Submission Error</h4>
+          <p style="margin:0;font-size:14px;color:#666">${error.message}</p>
+          <p style="margin:.5rem 0 0 0;font-size:13px;color:#999">Please try again or contact your manager directly.</p>
+        `;
+      }
+    } finally {
+      // Re-enable button
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalBtnText;
+      submitBtn.style.opacity = '1';
+    }
+  });
+}
 </script>
 </body>
 </html>
